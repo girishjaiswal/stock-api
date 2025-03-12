@@ -1,0 +1,2 @@
+INSERT INTO public.stock (id, name, current_Price, last_Update, user_name) values (1, 'abc', 23.23, CURRENT_TIMESTAMP, 'girish.jaiswal05@gmail.com');
+INSERT INTO public.stock (id, name, current_Price, last_Update, user_name) values (2, 'xyz', 44.44, CURRENT_TIMESTAMP, 'girish.jaiswal05@gmail.com');
