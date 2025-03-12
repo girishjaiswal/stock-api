@@ -1,0 +1,41 @@
+version: "3.8"
+services:
+  db:
+    build:
+      context: ./src/docker/databases/postgresql
+      dockerfile: Dockerfile
+    image: spring-boot-postgresql-db
+    container_name: spring-boot-postgresql-db-ins
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: stockdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  stock-api:
+    image: stock-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: stock-api
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+    depends_on:
+      - db
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
